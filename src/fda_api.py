@@ -3,13 +3,13 @@ import requests
 search = ""
 firstLoop = True
 
-while (search != "Q"):
+while (search != "Q" or search != "q"):
     search = ""
     firstLoop = True
-    while (search!= "event" and search!= "label" and search != "enforcement"):
+    while (search!= "event" and search!= "label" and search != "enforcement" and search != "Q" and search != "q"):
         if (firstLoop == False):
             print("""Must enter "event", "label", or "enforcement" """)
-        search = input("What would you like to search for? (event, label, or enforcement. Q to quit): ")
+        search = input("\nWhat would you like to search for? (event, label, or enforcement. Q to quit): ")
         firstLoop = False
 
     if (search == "event"):
