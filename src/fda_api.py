@@ -3,7 +3,7 @@ import requests
 search = ""
 firstLoop = True
 
-while (search != "Q" or search != "q"):
+while (search != "Q" and search != "q"):
     search = ""
     firstLoop = True
     while (search!= "event" and search!= "label" and search != "enforcement" and search != "Q" and search != "q"):
