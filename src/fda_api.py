@@ -19,6 +19,8 @@ while (search != "Q" and search != "q"):
     if (search != "Q" and search != "q"):
         r = requests.get(f'https://api.fda.gov/drug/{search}.json?limit={number_searches}')
         print("Status: ", r.status_code)
+        print(f"Encoding: {r.encoding}")
         print(r.json())
+
 
 print("\nThank you for searching with us!")
