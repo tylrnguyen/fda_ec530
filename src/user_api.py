@@ -1,9 +1,24 @@
 from fastapi import FastAPI, HTTPException, Query
 from typing_extensions import Annotated
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
 users_db = {}
+
+class User(BaseModel):
+    username: str = Field(
+        min_length = 1,
+        max_length = 100,
+        description = "Name of the user"
+    )
+    id: int = Field(
+        description = "User's unique id"
+    )
+    text: List[str] = Field(
+        description = "User's text notes"
+    )
+    
 
 num_users = 0
 
@@ -11,11 +26,17 @@ num_users = 0
 def home():
     return {"message": "Welcome to the user API"}
 
+@app.get("/users")
+def get_users():
+    return users_db
+
+
 @app.get("/users/{id}")
 def get_account(id: int):
     return {
         "username": users_db[id]
     }
+
 
 @app.post("/users")
 def add_user(username: str):
