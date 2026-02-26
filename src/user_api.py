@@ -18,22 +18,19 @@ class User(BaseModel):
    
 users_db: Dict[int, User] = {}
 
+num_users = 0 # Used for id
 
-num_users = 0
-
-
+# Returns welcome message
 @app.get("/")
 def home():
     return {"message": "Welcome to the user API"}
 
-
+# Returns list of users
 @app.get("/users")
 def get_users():
     return users_db
 
-
-
-
+# Returns user's id
 @app.get("/users/{id}")
 def get_account(id: int):
     if id not in users_db:
@@ -42,16 +39,14 @@ def get_account(id: int):
         "username": users_db[id]
     }
 
-
+# Returns user's notes
 @app.get("/users/{id}/notes")
 def get_notes(id: int):
     if id not in users_db:
         raise HTTPException(status_code=404, detail="User not found")
     return users_db[id].notes
 
-
-
-
+# Adds a user
 @app.post("/users")
 def add_user(username: str):
     global num_users
@@ -62,7 +57,7 @@ def add_user(username: str):
     num_users += 1
     return {"message": "User added successfully", "user": user}
 
-
+# Adds a note to user's notes
 @app.post("/users/{id}/notes")
 def add_note(id: int, text_note: str):
     if id not in users_db:
@@ -74,7 +69,7 @@ def add_note(id: int, text_note: str):
         "note": text_note
     }
 
-
+# Adds random drug event to user's notes
 @app.post("/users/{id}/notes/event")
 def add_event(id: int):
     if id not in users_db:
@@ -87,7 +82,7 @@ def add_event(id: int):
         "note": r.text
     }
 
-
+# Adds random drug label to user's notes
 @app.post("/users/{id}/notes/label")
 def add_event(id: int):
     if id not in users_db:
@@ -100,7 +95,7 @@ def add_event(id: int):
         "note": r.text
     }
 
-
+# Adds random drug enforcement event to user's notes
 @app.post("/users/{id}/notes/enforcement")
 def add_event(id: int):
     if id not in users_db:
